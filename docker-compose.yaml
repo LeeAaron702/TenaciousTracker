@@ -1,0 +1,43 @@
+volumes:
+  tenacioustrackervolume:
+    external: true
+services:
+  fastapi:
+    build:
+      context: ./tenacioustracker
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - 8000:8000
+    volumes:
+      - ./tenacioustracker:/app
+    environment:
+      SIGNING_KEY: 1dba62137447861b2b2eb81e5886fa98d021007b
+      DATABASE_URL: postgresql://user:user@db/tenacioustrackerpostgres
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
+      WAIT_HOST: db:5432
+  db:
+    image: postgres:latest
+    volumes:
+      - tenacioustrackervolume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: tenacioustrackerpostgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+    ports:
+      - 15432:5432
+
+  ghi:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    volumes:
+      - ./ghi:/app
+    ports:
+      - "3000:3000"
+    environment:
+      HOST_OS: ${OS}
+      NODE_ENV: development
+      HOST: "0.0.0.0"
+      PUBLIC_URL: http://localhost:3000
+      REACT_APP_USER_SERVICE_API_HOST: http://localhost:8000
