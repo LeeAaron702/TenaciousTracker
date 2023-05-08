@@ -7,9 +7,7 @@ const TotalFuelPurchases = ({ gasRecords }) => {
     0
   );
 
-  return (
-    <MetricCard title="Total Fuel Purchases" value={`${totalGallons} gal`} />
-  );
+  return <MetricCard title="Total Fuel" value={`${totalGallons} gal`} />;
 };
 
 export default TotalFuelPurchases;

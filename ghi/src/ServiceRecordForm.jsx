@@ -48,32 +48,6 @@ const ServiceRecordForm = ({
     }
   };
 
-  const handleDelete = async () => {
-    if (!serviceRecord.id) return;
-
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/service/${serviceRecord.id}`;
-    const fetchConfig = {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await fetch(url, fetchConfig);
-    if (response.ok) {
-      fetchServices();
-      closeModal();
-      setRefresh((prevRefresh) => !prevRefresh);
-    } else {
-      alert("Error while deleting service record");
-    }
-  };
-
-  useEffect(() => {
-    if (serviceId) {
-      fetchServiceRecord(serviceId);
-    }
-  }, [serviceId]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const url = serviceId
@@ -111,6 +85,32 @@ const ServiceRecordForm = ({
       alert("Error while submitting service record");
     }
   };
+
+  const handleDelete = async () => {
+    if (!serviceRecord.id) return;
+
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/service/${serviceRecord.id}`;
+    const fetchConfig = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      fetchServices();
+      closeModal();
+      setRefresh((prevRefresh) => !prevRefresh);
+    } else {
+      alert("Error while deleting service record");
+    }
+  };
+
+  useEffect(() => {
+    if (serviceId) {
+      fetchServiceRecord(serviceId);
+    }
+  }, [serviceId]);
 
   return (
     <>

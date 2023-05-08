@@ -11,7 +11,7 @@ const ServiceList = ({ vehicleId, setRefresh, fetchVehicles }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
 
-  const openModal = (serviceId) => {
+  const openModal = (serviceId = null) => {
     setShowEditModal(true);
     setSelectedServiceId(serviceId);
   };
@@ -42,7 +42,10 @@ const ServiceList = ({ vehicleId, setRefresh, fetchVehicles }) => {
     <div className="container">
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="mb-0">Service Records</h1>
-        <button className="btn btn-outline-primary btn-sm" onClick={openModal}>
+        <button
+          className="btn btn-outline-primary btn-sm"
+          onClick={() => openModal()}
+        >
           Add Service Record
         </button>
       </div>
