@@ -13,6 +13,7 @@ import LongestStretchMilesOnSingleTank from "./LongestStretchMilesOnSingleTank "
 import AverageTimeBetweenFillUps from "./AverageTimeBetweenFillUps";
 import TotalSpent from "./TotalSpent";
 import TotalMaintenanceSpent from "./TotalMaintenanceSpent";
+import ProjectedAnnualCost from "./ProjectedAnnualCost";
 
 const MetricsContainer = ({ vehicleId, token, refresh }) => {
   const [status, setStatus] = useState("loading");
@@ -110,6 +111,12 @@ const MetricsContainer = ({ vehicleId, token, refresh }) => {
       </div>
       <div className="col-md-6 col-lg-4 mb-4">
         <TotalMaintenanceSpent serviceRecords={services} />
+      </div>
+      <div className="col-md-6 col-lg-4 mb-4">
+        <ProjectedAnnualCost
+          gasRecords={gas_records}
+          serviceRecords={services}
+        />
       </div>
     </div>
   );
