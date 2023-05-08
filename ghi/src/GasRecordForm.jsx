@@ -299,7 +299,6 @@ const GasRecordForm = ({
                     onChange={(e) => setNotes(e.target.value)}
                   />
                 </div>
-
                 <div className="col-12">
                   <button type="submit" className="btn btn-primary mt-2">
                     {gasRecord.id ? "Update" : "Create"} Gas Record

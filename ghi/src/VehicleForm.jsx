@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import useToken, { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
 
@@ -11,16 +10,15 @@ const VehicleForm = ({
 }) => {
   const { token } = useContext(AuthContext);
   const user = useUser(token);
-  const navigate = useNavigate();
-  const [make, setMake] = useState(vehicle.make || "");
-  const [model, setModel] = useState(vehicle.model || "");
-  const [year, setYear] = useState(vehicle.year || "");
-  const [vin, setVin] = useState(vehicle.vin || "");
+  const [make, setMake] = useState(vehicle?.make || "");
+  const [model, setModel] = useState(vehicle?.model || "");
+  const [year, setYear] = useState(vehicle?.year || "");
+  const [vin, setVin] = useState(vehicle?.vin || "");
   const [modifications, setModifications] = useState(
-    vehicle.modifications || ""
+    vehicle?.modifications || ""
   );
-  const [fuelType, setFuelType] = useState(vehicle.fuel_type || "");
-  const [color, setColor] = useState(vehicle.color || "");
+  const [fuelType, setFuelType] = useState(vehicle?.fuel_type || "");
+  const [color, setColor] = useState(vehicle?.color || "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +32,6 @@ const VehicleForm = ({
       modifications,
     };
     data.user_id = user.id;
-    console.log(data);
 
     const url = vehicle.id
       ? `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicle/${vehicle.id}`
@@ -50,6 +47,7 @@ const VehicleForm = ({
     });
 
     if (response.ok) {
+      vehicle?.id && fetchVehicle(vehicle.id);
       fetchVehicles();
       closeModal();
     } else {

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import accounts, vehicle, gas_record
+from routers import accounts, vehicle, gas_record, service
 from authenticator import authenticator
 import os
 
@@ -16,6 +16,7 @@ app.include_router(accounts.router)
 app.include_router(authenticator.router)
 app.include_router(vehicle.router)
 app.include_router(gas_record.router)
+app.include_router(service.router)
 
 
 app.add_middleware(
