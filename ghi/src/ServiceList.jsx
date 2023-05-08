@@ -26,10 +26,57 @@ const ServiceList = ({
     setSelectedServiceId(null);
   };
 
+  const downloadCSV = () => {
+    const headers = [
+      "Date",
+      "Service Type",
+      "Description",
+      "Cost",
+      "Shop Name",
+      "Location",
+      "Mileage",
+      "Parts Used",
+      "Warranty",
+      "Notes",
+    ];
+
+    const rows = services.map((service) => [
+      service.service_date,
+      service.service_type,
+      service.service_description,
+      service.service_cost,
+      service.service_shop_name,
+      service.service_shop_location,
+      service.service_mileage,
+      service.parts_used,
+      service.warranty ? "Yes" : "No",
+      service.notes,
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers, ...rows].map((row) => row.join(",")).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "service_records.csv");
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="mb-0">Service Records</h1>
+        <button
+          className="btn btn-outline-success btn-sm"
+          onClick={downloadCSV}
+        >
+          Export CSV
+        </button>
         <button
           className="btn btn-outline-primary btn-sm"
           onClick={() => openModal()}

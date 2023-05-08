@@ -77,6 +77,47 @@ const GasRecordList = ({ vehicleId, setRefresh, fetchVehicles }) => {
     }).format(date);
   };
 
+  const exportGasRecordsToCSV = () => {
+    const headers = [
+      "Purchase Date",
+      "Mileage",
+      "Gallons",
+      "MPG",
+      "Cost per Gallon",
+      "Total",
+      "Payment Method",
+      "Fuel Brand",
+      "Location",
+      "Notes",
+    ];
+
+    const data = sortedGasRecords.map((gasRecord) => [
+      formatDate(gasRecord.purchase_date),
+      gasRecord.odometer_reading,
+      gasRecord.gallons,
+      gasRecord.mpg_per_tank,
+      (gasRecord.price / gasRecord.gallons).toFixed(2),
+      gasRecord.price,
+      gasRecord.payment_method,
+      gasRecord.fuel_brand,
+      gasRecord.location,
+      gasRecord.notes,
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers.join(","), ...data.map((row) => row.join(","))].join("\r\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "gas_records.csv");
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center">
@@ -86,6 +127,12 @@ const GasRecordList = ({ vehicleId, setRefresh, fetchVehicles }) => {
           onClick={openEditVehicleModal}
         >
           Edit Current Vehicle
+        </button>
+        <button
+          className="btn btn-outline-success btn-sm mx-2"
+          onClick={exportGasRecordsToCSV}
+        >
+          Export Gas Records
         </button>
         <button className="btn btn-outline-primary btn-sm" onClick={openModal}>
           Add Gas Record
