@@ -73,7 +73,7 @@ const MetricsContainer = ({ vehicleId, token, refresh }) => {
 
   return (
     <div className="row">
-      <div className="col-md-6 col-lg-4 mb-4">
+      <div className="col-md-6 col-lg-4 mb-4 ">
         <TotalSpent gasRecords={gas_records} serviceRecords={services} />
       </div>
       <div className="col-md-6 col-lg-4 mb-4">
@@ -89,9 +89,6 @@ const MetricsContainer = ({ vehicleId, token, refresh }) => {
         <TotalFuelPurchases gasRecords={gas_records} />
       </div>
       <div className="col-md-6 col-lg-4 mb-4">
-        <TotalMilesDriven gasRecords={gas_records} />
-      </div>
-      <div className="col-md-6 col-lg-4 mb-4">
         <AverageCostPerMile gasRecords={gas_records} />
       </div>
       <div className="col-md-6 col-lg-4 mb-4">
@@ -101,14 +98,15 @@ const MetricsContainer = ({ vehicleId, token, refresh }) => {
         <TotalFillUps gasRecords={gas_records} />
       </div>
       <div className="col-md-6 col-lg-4 mb-4">
-        <LongestStretchMilesOnSingleTank gasRecords={gas_records} />
-      </div>
-      <div className="col-md-6 col-lg-8 mb-4">
-        <AverageMPGPerMonth gasRecords={gas_records} />
-      </div>
-      <div className="col-md-6 col-lg-4 mb-4">
         <AverageTimeBetweenFillUps gasRecords={gas_records} />
       </div>
+      <div className="col-md-6 col-lg-4 mb-4">
+        <TotalMilesDriven gasRecords={gas_records} />
+      </div>
+      <div className="col-md-6 col-lg-4 mb-4">
+        <LongestStretchMilesOnSingleTank gasRecords={gas_records} />
+      </div>
+
       <div className="col-md-6 col-lg-4 mb-4">
         <TotalMaintenanceSpent serviceRecords={services} />
       </div>
@@ -117,6 +115,9 @@ const MetricsContainer = ({ vehicleId, token, refresh }) => {
           gasRecords={gas_records}
           serviceRecords={services}
         />
+      </div>
+      <div className="col-md-6 col-lg-8 mb-4">
+        <AverageMPGPerMonth gasRecords={gas_records} />
       </div>
     </div>
   );

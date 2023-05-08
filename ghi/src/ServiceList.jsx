@@ -3,10 +3,15 @@ import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
 import ServiceRecordForm from "./ServiceRecordForm";
 
-const ServiceList = ({ vehicleId, setRefresh, fetchVehicles }) => {
+const ServiceList = ({
+  vehicleId,
+  setRefresh,
+  fetchVehicles,
+  services,
+  fetchServices,
+}) => {
   const { token } = useContext(AuthContext);
   const user = useUser(token);
-  const [services, setServices] = useState([]);
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
@@ -20,23 +25,6 @@ const ServiceList = ({ vehicleId, setRefresh, fetchVehicles }) => {
     setShowEditModal(false);
     setSelectedServiceId(null);
   };
-
-  const fetchServices = async () => {
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicle/${vehicleId}/services`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setServices(data);
-    }
-  };
-
-  useEffect(() => {
-    if (token) {
-      fetchServices();
-    }
-  }, [token, vehicleId]);
 
   return (
     <div className="container">
