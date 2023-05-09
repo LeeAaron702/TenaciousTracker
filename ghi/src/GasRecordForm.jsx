@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
 
@@ -13,10 +12,8 @@ const GasRecordForm = ({
   vehicle,
 }) => {
   const [previousMileage, setPreviousMileage] = useState(null);
-
   const { token } = useContext(AuthContext);
   const user = useUser(token);
-  const navigate = useNavigate();
   const [gasRecord, setGasRecord] = useState([]);
   const [purchase_date, setPurchaseDate] = useState("");
   const [odometer_reading, setOdometerReading] = useState("");
@@ -24,10 +21,13 @@ const GasRecordForm = ({
   const [price, setPrice] = useState("");
   const [payment_method, setPaymentMethod] = useState("");
   const [fuel_brand, setFuelBrand] = useState("");
-  const [fuel_grade, setFuelGrade] = useState(vehicle.fuel_grade);
+  const [fuel_grade, setFuelGrade] = useState(vehicle.fuel_type);
   const [location, setLocation] = useState("");
   const [notes, setNotes] = useState("");
   const [mpg_per_tank, setMpgPerTank] = useState("");
+
+  const [uniqueLocations, setUniqueLocations] = useState([]);
+  const [customLocation, setCustomLocation] = useState("");
 
   const fetchGasRecord = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/gas_record/${gasId}`;
@@ -50,6 +50,15 @@ const GasRecordForm = ({
       setMpgPerTank(data.mpg_per_tank);
     }
   };
+
+  const getUniqueLocations = () => {
+    const locations = gasRecords.map((record) => record.location);
+    const uniqueLocations = [...new Set(locations)];
+    return uniqueLocations;
+  };
+  useEffect(() => {
+    setUniqueLocations(getUniqueLocations());
+  }, [gasRecords]);
 
   const handleDelete = async () => {
     if (!gasRecord.id) return;
@@ -121,7 +130,7 @@ const GasRecordForm = ({
     data.payment_method = payment_method;
     data.fuel_brand = fuel_brand;
     data.fuel_grade = fuel_grade;
-    data.location = location;
+    data.location = location === "custom" ? customLocation : location;
     data.notes = notes;
 
     if (mpg_per_tank) {
@@ -183,7 +192,7 @@ const GasRecordForm = ({
                     onChange={(e) => setPurchaseDate(e.target.value)}
                   />
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-3">
                   <label htmlFor="odometer_reading" className="form-label">
                     Odometer
                   </label>
@@ -232,9 +241,9 @@ const GasRecordForm = ({
                     onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <label htmlFor="payment_method" className="form-label">
-                    Payment Method
+                    Payment
                   </label>
                   <select
                     className="form-control"
@@ -242,7 +251,7 @@ const GasRecordForm = ({
                     value={payment_method}
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   >
-                    <option value="">Select method</option>
+                    <option value="">Select</option>
                     <option value="Credit">Credit</option>
                     <option value="Debit">Debit</option>
                     <option value="Cash">Cash</option>
@@ -273,25 +282,63 @@ const GasRecordForm = ({
                     <option value="">Select Fuel</option>
                     <option value="Gasoline">Gasoline</option>
                     <option value="Diesel">Diesel</option>
+                    <option value="Gasoline">Electric</option>
                   </select>
                 </div>
-                <div className="col-md-4">
+                <div className="col">
                   <label htmlFor="location" className="form-label">
                     Location
                   </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="location"
-                    value={location}
-                    placeholder="123 Street, City, State, Zip"
-                    onChange={(e) => setLocation(e.target.value)}
-                  />
+                  <style>
+                    {`
+                    .location-select.custom {
+                      border-top-right-radius: 0;
+                      border-bottom-right-radius: 0;
+                      border-right: none;
+                    }
+                    .location-input {
+                      border-top-left-radius: 0;
+                      border-bottom-left-radius: 0;
+                    }
+                  `}
+                  </style>
+                  <div className="input-group">
+                    <div className="col-5">
+                      <select
+                        className={`form-control location-select ${
+                          location === "custom" ? "custom" : ""
+                        }`}
+                        id="location"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                      >
+                        <option value="">Select Location</option>
+                        {uniqueLocations.map((loc, index) => (
+                          <option key={index} value={loc}>
+                            {loc}
+                          </option>
+                        ))}
+                        <option value="custom">New</option>
+                      </select>
+                    </div>
+                    {location === "custom" && (
+                      <div className="col-7">
+                        <input
+                          type="text"
+                          className="form-control location-input"
+                          placeholder="Enter new location"
+                          value={customLocation}
+                          onChange={(e) => setCustomLocation(e.target.value)}
+                        />
+                      </div>
+                    )}
+                  </div>
                   <footer>
                     If address is correct map function should work
                   </footer>
                 </div>
-                <div className="col-md-11">
+
+                <div className="col-md-12">
                   <label htmlFor="notes" className="form-label">
                     Notes
                   </label>

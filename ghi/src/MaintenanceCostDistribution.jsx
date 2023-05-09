@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 const MaintenanceCostDistribution = ({ vehicleId, token, services }) => {
+  if (!services || services.length === 0) {
+    return <p>No records available to display.</p>;
+  }
   const [data, setData] = useState([]);
 
   useEffect(() => {

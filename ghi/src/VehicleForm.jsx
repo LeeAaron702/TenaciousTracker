@@ -132,15 +132,19 @@ const VehicleForm = ({
                       <label htmlFor="vin">VIN</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input
+                      <select
                         type="text"
                         className="form-control"
                         id="fuelType"
                         value={fuelType}
                         onChange={(event) => setFuelType(event.target.value)}
-                        placeholder="Fuel Type"
-                      />
-                      <label htmlFor="fuelType">Fuel Type</label>
+                        // placeholder="Fuel Type"
+                      >
+                        <option value="">Select Fuel</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Gasoline">Gasoline</option>
+                        <option value="Gasoline">Electric</option>
+                      </select>
                     </div>
                     <div className="form-floating mb-3">
                       <input

@@ -26,6 +26,13 @@ const redIcon = new L.Icon({
 });
 
 const RecordsMap = ({ gasRecords, services }) => {
+  if (
+    (!services || services.length === 0) &
+    (!gasRecords || gasRecords.length === 0)
+  ) {
+    return <p>No records available to display.</p>;
+  }
+
   const [mapData, setMapData] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
 

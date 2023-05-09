@@ -43,12 +43,6 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      fetchServices();
-    }
-  }, [token, selectedVehicleId]);
-
   const fetchVehicles = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicles`;
     const response = await fetch(url, {
@@ -60,11 +54,11 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      fetchVehicles();
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     fetchVehicles();
+  //   }
+  // }, [token, selectedVehicleId]);
 
   const fetchGasRecords = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicle/${selectedVehicleId}/gas_records`;
@@ -77,8 +71,16 @@ const Dashboard = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if (token) {
+  //     fetchGasRecords();
+  //   }
+  // }, [token, selectedVehicleId]);
+
   useEffect(() => {
     if (token) {
+      fetchServices();
+      fetchVehicles();
       fetchGasRecords();
     }
   }, [token, selectedVehicleId]);
