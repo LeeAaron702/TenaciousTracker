@@ -20,6 +20,8 @@ const Dashboard = () => {
   const [refresh, setRefresh] = useState(false);
   const [services, setServices] = useState([]);
 
+  const [gasRecords, setGasRecords] = useState([]);
+
   const openModal = () => {
     setNewVeicleModal(true);
   };
@@ -44,6 +46,7 @@ const Dashboard = () => {
       fetchServices();
     }
   }, [token, selectedVehicleId]);
+
   const fetchVehicles = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicles`;
     const response = await fetch(url, {
@@ -61,12 +64,29 @@ const Dashboard = () => {
     }
   }, [token]);
 
+  const fetchGasRecords = async () => {
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicle/${selectedVehicleId}/gas_records`;
+    const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setGasRecords(data);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchGasRecords();
+    }
+  }, [token, selectedVehicleId]);
+
   const handleTabClick = (vehicleId) => {
     setSelectedVehicleId(vehicleId);
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-12 text-center">
           <h1>Welcome to your Dashboard</h1>
@@ -75,18 +95,20 @@ const Dashboard = () => {
       <div className="row">
         <div className="col">
           <ul className="nav nav-tabs">
-            {vehicles.map((vehicle) => (
-              <li className="nav-item" key={vehicle.id}>
-                <a
-                  className={`nav-link ${
-                    selectedVehicleId === vehicle.id ? "active" : ""
-                  }`}
-                  onClick={() => handleTabClick(vehicle.id)}
-                >
-                  {vehicle.make} {vehicle.model}
-                </a>
-              </li>
-            ))}
+            {vehicles
+              .sort((a, b) => a.id - b.id)
+              .map((vehicle) => (
+                <li className="nav-item" key={vehicle.id}>
+                  <a
+                    className={`nav-link ${
+                      selectedVehicleId === vehicle.id ? "active" : ""
+                    }`}
+                    onClick={() => handleTabClick(vehicle.id)}
+                  >
+                    {vehicle.make} {vehicle.model}
+                  </a>
+                </li>
+              ))}
             <li className="nav-link" onClick={openModal}>
               New Vehicle
             </li>
@@ -120,6 +142,8 @@ const Dashboard = () => {
                       vehicleId={selectedVehicleId}
                       setRefresh={setRefresh}
                       fetchVehicles={fetchVehicles}
+                      gasRecords={gasRecords}
+                      fetchGasRecords={fetchGasRecords}
                     />
                   )}
                 </div>
@@ -179,6 +203,7 @@ const Dashboard = () => {
                     <FuelLogVisualization
                       vehicleId={selectedVehicleId}
                       token={token}
+                      records={gasRecords}
                     />
                   )}
                 </div>

@@ -70,12 +70,12 @@ const ServiceList = ({
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center">
-        <h1 className="mb-0">Service Records</h1>
+        <h2 className="mb-0">Service Records</h2>
         <button
           className="btn btn-outline-success btn-sm"
           onClick={downloadCSV}
         >
-          Export CSV
+          Export Service Records
         </button>
         <button
           className="btn btn-outline-primary btn-sm"

@@ -4,13 +4,19 @@ import useUser from "./useUser";
 import GasRecordForm from "./GasRecordForm";
 import VehicleForm from "./VehicleForm";
 
-const GasRecordList = ({ vehicleId, setRefresh, fetchVehicles }) => {
+const GasRecordList = ({
+  vehicleId,
+  setRefresh,
+  fetchVehicles,
+  gasRecords,
+  fetchGasRecords,
+}) => {
   const { token } = useContext(AuthContext);
   const user = useUser(token);
-  const [gasRecords, setGasRecords] = useState([]);
+  // const [gasRecords, setGasRecords] = useState([]);
 
   const [showEditVehicleModal, setShowEditVehicleModal] = useState(false);
-  const [vehicle, setVehicle] = useState("");
+  const [vehicle, setVehicle] = useState([]);
   const [editingVehicle, setEditingVehicle] = useState(null);
 
   const openEditVehicleModal = (vehicle) => {
@@ -46,16 +52,16 @@ const GasRecordList = ({ vehicleId, setRefresh, fetchVehicles }) => {
     setSelectedGasId(null);
   };
 
-  const fetchGasRecords = async () => {
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicle/${vehicleId}/gas_records`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setGasRecords(data);
-    }
-  };
+  // const fetchGasRecords = async () => {
+  //   const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/vehicle/${vehicleId}/gas_records`;
+  //   const response = await fetch(url, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   });
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     setGasRecords(data);
+  //   }
+  // };
 
   useEffect(() => {
     if (token) {
@@ -121,7 +127,7 @@ const GasRecordList = ({ vehicleId, setRefresh, fetchVehicles }) => {
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center">
-        <h1 className="mb-0">Gas Records</h1>
+        <h2 className="mb-0">Gas Records</h2>
         <button
           className="btn btn-outline-secondary btn-sm"
           onClick={openEditVehicleModal}

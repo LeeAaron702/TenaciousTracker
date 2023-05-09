@@ -34,24 +34,27 @@ const MaintenanceCostDistribution = ({ vehicleId, token, services }) => {
   };
 
   return (
-    <PieChart width={800} height={800}>
-      <Pie
-        data={data}
-        cx={400}
-        cy={400}
-        labelLine={false}
-        outerRadius={160}
-        fill="#8884d8"
-        dataKey="value"
-        label={renderLabel}
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-      <Tooltip />
-      <Legend />
-    </PieChart>
+    <>
+      <h3>Maintenance Cost Distribution</h3>
+      <PieChart width={800} height={700}>
+        <Pie
+          data={data}
+          cx={300}
+          cy={350}
+          labelLine={false}
+          outerRadius={160}
+          fill="#8884d8"
+          dataKey="value"
+          label={renderLabel}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    </>
   );
 };
 

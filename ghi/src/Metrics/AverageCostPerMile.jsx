@@ -9,7 +9,10 @@ const AverageCostPerMile = ({ gasRecords }) => {
   const avgCostPerMile = (totalSpent / totalMiles).toFixed(2);
 
   return (
-    <MetricCard title="Average Cost per Mile" value={`$${avgCostPerMile}`} />
+    <MetricCard
+      title="Average Fuel Cost per Mile"
+      value={`$${avgCostPerMile}`}
+    />
   );
 };
 

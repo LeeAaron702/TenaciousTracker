@@ -10,16 +10,15 @@ const VehicleForm = ({
 }) => {
   const { token } = useContext(AuthContext);
   const user = useUser(token);
-  const [make, setMake] = useState(vehicle?.make || "");
-  const [model, setModel] = useState(vehicle?.model || "");
-  const [year, setYear] = useState(vehicle?.year || "");
-  const [vin, setVin] = useState(vehicle?.vin || "");
+  const [make, setMake] = useState(vehicle.make || "");
+  const [model, setModel] = useState(vehicle.model || "");
+  const [year, setYear] = useState(vehicle.year || "");
+  const [vin, setVin] = useState(vehicle.vin || "");
   const [modifications, setModifications] = useState(
-    vehicle?.modifications || ""
+    vehicle.modifications || ""
   );
-  const [fuelType, setFuelType] = useState(vehicle?.fuel_type || "");
-  const [color, setColor] = useState(vehicle?.color || "");
-
+  const [fuelType, setFuelType] = useState(vehicle.fuel_type || "");
+  const [color, setColor] = useState(vehicle.color || "");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {

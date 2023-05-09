@@ -5,9 +5,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Nav from "./Nav";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
+import Footer from "./Footer.jsx";
 
 
 function App() {
+
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
@@ -21,6 +23,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="dashboard" element={<Dashboard />} />
           </Routes>
+          <Footer />
         </div>
       </AuthProvider>
     </BrowserRouter>
