@@ -9,7 +9,7 @@ import ServiceList from "./ServiceList";
 import FuelLogVisualization from "./FuelLogVisualization";
 import MaintenanceCostDistribution from "./MaintenanceCostDistribution";
 import RecordsMap from "./RecordMap";
-import FuelEfficiencyLineGraph from "./FuelEfficiencyLineGraph ";
+import FuelEfficiencyLineGraph from "./FuelEfficiencyLineGraph";
 
 const Dashboard = () => {
   const { token } = useContext(AuthContext);
