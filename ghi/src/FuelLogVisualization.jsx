@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 const FuelLogVisualization = ({ records }) => {
+  if (!records || !records.length) {
+    return <p>No data available.</p>;
+  }
   const chartWidth = 750;
   const chartHeight = 300;
   const chartMargin = { top: 30, right: 20, bottom: 40, left: 50 };

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
 
@@ -248,7 +248,7 @@ const GasRecordForm = ({
                     <option value="Cash">Cash</option>
                   </select>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <label htmlFor="fuel_brand" className="form-label">
                     Fuel Brand
                   </label>
@@ -260,7 +260,7 @@ const GasRecordForm = ({
                     onChange={(e) => setFuelBrand(e.target.value)}
                   />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <label htmlFor="fuel_grade" className="form-label">
                     Fuel Type
                   </label>
@@ -270,12 +270,12 @@ const GasRecordForm = ({
                     value={fuel_grade}
                     onChange={(e) => setFuelGrade(e.target.value)}
                   >
-                    <option value="">Select fuel type</option>
+                    <option value="">Select Fuel</option>
                     <option value="Gasoline">Gasoline</option>
                     <option value="Diesel">Diesel</option>
                   </select>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-4">
                   <label htmlFor="location" className="form-label">
                     Location
                   </label>
@@ -284,8 +284,12 @@ const GasRecordForm = ({
                     className="form-control"
                     id="location"
                     value={location}
+                    placeholder="123 Street, City, State, Zip"
                     onChange={(e) => setLocation(e.target.value)}
                   />
+                  <footer>
+                    If address is correct map function should work
+                  </footer>
                 </div>
                 <div className="col-md-11">
                   <label htmlFor="notes" className="form-label">

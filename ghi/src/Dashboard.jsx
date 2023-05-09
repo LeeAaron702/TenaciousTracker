@@ -8,6 +8,8 @@ import MetricsContainer from "./Metrics/MetricsContainer";
 import ServiceList from "./ServiceList";
 import FuelLogVisualization from "./FuelLogVisualization";
 import MaintenanceCostDistribution from "./MaintenanceCostDistribution";
+import RecordsMap from "./RecordMap";
+import FuelEfficiencyLineGraph from "./FuelEfficiencyLineGraph ";
 
 const Dashboard = () => {
   const { token } = useContext(AuthContext);
@@ -89,7 +91,7 @@ const Dashboard = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 text-center">
-          <h1>Welcome to your Dashboard</h1>
+          <h1>Welcome {user ? user.username : ""}</h1>
         </div>
       </div>
       <div className="row">
@@ -215,6 +217,35 @@ const Dashboard = () => {
                   className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
+                  data-bs-target="#fuel-efficiency-line-graph-collapse"
+                  aria-expanded="false"
+                  aria-controls="fuel-efficiency-line-graph-collapse"
+                >
+                  Fuel Efficiency MPG Line Graph
+                </button>
+              </h2>
+              <div
+                id="fuel-efficiency-line-graph-collapse"
+                className="accordion-collapse collapse"
+                data-bs-parent="#gas-records-accordion"
+              >
+                <div className="accordion-body">
+                  {selectedVehicleId && (
+                    <FuelEfficiencyLineGraph
+                      vehicleId={selectedVehicleId}
+                      token={token}
+                      records={gasRecords}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
                   data-bs-target="#maintenance-cost-distribution-collapse"
                   aria-expanded="false"
                   aria-controls="maintenance-cost-distribution-collapse"
@@ -234,6 +265,31 @@ const Dashboard = () => {
                       token={token}
                       services={services}
                     />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#records-map-collapse"
+                  aria-expanded="false"
+                  aria-controls="records-map-collapse"
+                >
+                  Records Map
+                </button>
+              </h2>
+              <div
+                id="records-map-collapse"
+                className="accordion-collapse collapse"
+                data-bs-parent="#gas-records-accordion"
+              >
+                <div className="accordion-body">
+                  {selectedVehicleId && (
+                    <RecordsMap gasRecords={gasRecords} services={services} />
                   )}
                 </div>
               </div>
