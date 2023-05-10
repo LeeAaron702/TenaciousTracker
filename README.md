@@ -14,6 +14,19 @@ A web-based application that helps users manage and track the maintenance, fuel 
 - View gas and service records on a map
 - Dashboard with vehicle-specific metrics
 
+## Technologies Used
+
+- React.js: A JavaScript library for building user interfaces. React.js was used to build the front-end of the application with reusable components.
+- Bootstrap: A CSS framework for developing responsive and mobile-first websites. Bootstrap was used to style the application and ensure it is responsive across different screen sizes.
+- Node.js: A JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js was used to handle the server-side logic of the application.
+- Express.js: A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. Express.js was used to handle HTTP requests and routing.
+- PostgreSQL: A powerful, open source object-relational database system. PostgreSQL was used to store user data, vehicles, and their associated gas and service records.
+- Docker: An open platform for developing, shipping, and running applications. Docker was used to containerize the application, ensuring it runs uniformly across different environments.
+- JWT (JSON Web Tokens): A standard for securely transmitting information between parties as a JSON object. JWT was used for user authentication and authorization.
+- FastAPI: A modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints. FastAPI was used to build the application's API.
+- Google Maps API: A collection of APIs that enable developers to overlay data on a map and build interactive maps. Google Maps API was used to visualize gas and service records on a map.
+- Git & GitHub: Git, a distributed version control system, was used for source code management, with GitHub as the hosting platform for version control and collaboration.
+
 ## Database
 
 The Tenacious Tracker application relies on a backend database to store user information, vehicles, and their associated gas and service records. The database schema consists of three main tables:
