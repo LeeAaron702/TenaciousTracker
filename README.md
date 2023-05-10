@@ -1,8 +1,6 @@
 # Tenacious Tracker
 
-
-https://github.com/LeeAaron702/TenaciousTracker/assets/112150883/93a240fe-a848-4cde-9c76-62bcf6f9f37d
-
+![TenaciousTracker GIF](https://github.com/LeeAaron702/TenaciousTracker/assets/112150883/e85fa3f9-3f2e-416e-b4d4-f825eb6ffbf3)
 
 A web-based application that helps users manage and track the maintenance, fuel consumption, and expenses of their vehicles.
 
